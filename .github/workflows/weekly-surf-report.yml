@@ -1,0 +1,27 @@
+name: Weekly Surf Report
+
+on:
+  schedule:
+    # 06:00 UTC every Monday. Adjust for your timezone/DST as needed --
+    # cron is always UTC, so 06:00 UTC = 07:00/08:00 CET/CEST.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run report
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python3 surf_report.py
