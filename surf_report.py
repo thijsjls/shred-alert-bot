@@ -402,19 +402,19 @@ def send_email(html_body):
     port = int(os.environ.get("SMTP_PORT", "587"))
     user = os.environ["SMTP_USER"]
     password = os.environ["SMTP_PASS"]
-    to_addr = os.environ["EMAIL_TO"]
+    to_addrs = [a.strip() for a in os.environ["EMAIL_TO"].split(",") if a.strip()]
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"Surf report — {date.today().strftime('%a %d %b')}"
     msg["From"] = user
-    msg["To"] = to_addr
+    msg["To"] = ", ".join(to_addrs)
     msg.attach(MIMEText(html_body, "html"))
 
     context = ssl.create_default_context()
     with smtplib.SMTP(host, port) as server:
         server.starttls(context=context)
         server.login(user, password)
-        server.sendmail(user, [to_addr], msg.as_string())
+        server.sendmail(user, to_addrs, msg.as_string())
 
 
 def main():
