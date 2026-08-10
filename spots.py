@@ -89,6 +89,41 @@ SPOTS = [
             "style": "any_reef_caution",   # small penalty at dead low, shallow reef
         },
     },
+    {
+        "key": "wijk_aan_zee",
+        "name": "Wijk",
+        "region": "Wijk aan Zee, Noord-Holland",
+        "lat": 52.469,
+        "lon": -4.572,
+        "timezone": "Europe/Amsterdam",
+
+        "swell_dir": {
+            "ideal": 315,       # NW
+            "full_lo": 45, "full_hi": 45,
+            "zero_lo": 135, "zero_hi": 55,   # zero outside S(180)-NE(1)
+        },
+        "height_m": {
+            "ideal_min": 0.6, "ideal_max": 2.5,
+            "zero_min": 0.4, "zero_max": 4.0,
+        },
+        "period_s": {
+            "zero_below": 5.0,
+            "ideal_above": 9.0,
+        },
+        "wind_dir": {
+            "ideal": 90,        # offshore = East
+            "full_lo": 15, "full_hi": 15,
+            "zero_lo": 120, "zero_hi": 90,   # zero outside NE(45)-SE(135)
+        },
+        "wind_speed_kt": {
+            "ideal_max": 15.0,
+            "zero_above": 25.0,
+        },
+        "tide": {
+            "style": "mid_high_rising",
+            # reef/shallow caution not relevant here, it's sand
+        },
+    },
 ]
 
 # Relative importance of each factor in the final 0-10 score.
